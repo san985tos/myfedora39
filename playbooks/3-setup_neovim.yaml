@@ -1,0 +1,29 @@
+---
+- name: Setup Neovim
+  hosts: localhost
+  become: true
+  
+  tasks:
+    - name: dnf install zsh, neovim
+      ansible.builtin.package:
+        name:
+          - neovim
+          # check needed libs
+        state: present
+
+    - name: Create dir nvim under /home/lvazquez/.config/
+      ansible.builtin.file:
+        path: /home/lvazquez/.config/nvim
+        state: directory
+        mode: '0755'
+        owner: lvazquez
+        group: lvazquez
+    
+    - name: Copy init.lua from source to destination
+      ansible.builtin.copy:
+        src: /home/lvazquez/myFedora39/Config_files/init.lua
+        dest: /home/lvazquez/.config/nvim/init.lua
+        owner: lvazquez
+        group: lvazquez
+        mode: '0640'
+    
