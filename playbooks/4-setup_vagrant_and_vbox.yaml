@@ -1,7 +1,0 @@
----
-- name: 4-setup_vagrant_and_vbox
-  hosts: localhost
-  become: true
-  
-  tasks:
-    - name:

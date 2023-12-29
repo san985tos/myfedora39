@@ -1,0 +1,11 @@
+---
+- name: Installing_vagrant
+  hosts: localhost
+  become: true
+  
+  tasks:
+    - name: Install vagrant with dnf
+      ansible.builtin.package:
+        name: vagrant
+        state: present
+    

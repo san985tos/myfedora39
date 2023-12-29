@@ -1,0 +1,25 @@
+---
+- name: Installing_vbox
+  hosts: localhost
+  become: true
+  
+  tasks:
+    - name: Add the VirtualBox RPM repository to your Fedora system
+      ansible.builtin.get_url:
+        url: http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+        dest: /etc/yum.repos.d/
+    
+    - name:  Install VirtualBox
+      shell: |
+        sudo dnf install -y gcc binutils make glibc-devel patch libgomp glibc-headers kernel-headers kernel-devel-`uname -r` dkms
+        sudo dnf install -y VirtualBox-7.0
+
+    - name: Add your user account to the vboxusers group
+      shell: |
+        sudo usermod -a -G vboxusers ${USER}
+
+    - name: Finally, configure the VirtualBox drivers
+      shell: |
+        sudo /usr/lib/virtualbox/vboxdrv.sh setup
+
+    
