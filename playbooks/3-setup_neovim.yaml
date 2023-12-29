@@ -8,7 +8,9 @@
       ansible.builtin.package:
         name:
           - neovim
-          # check needed libs
+          - gcc
+          - clang
+          - zig
         state: present
 
     - name: 3_setup_neovim... Create dir nvim under /home/lvazquez/.config/
