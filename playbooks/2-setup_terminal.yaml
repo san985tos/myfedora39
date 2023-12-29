@@ -12,7 +12,7 @@
 
     - name: 2_setup_terminal... dnf install ohmyzshell
       shell: |
-        sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+        Y | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
     - name: 2_setup_terminal... Insert lines 'alias cls=clear' in /home/lvazquez/.zshrc
       ansible.builtin.blockinfile:
