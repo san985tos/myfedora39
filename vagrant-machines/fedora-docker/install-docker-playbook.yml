@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  become: true
+
+  tasks:
+    - name: Uninstall old versions
+      shell: |
+        sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+
+    - name: Set up the repository
+      shell: |
+        sudo dnf -y install dnf-plugins-core
+        sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+    - name: Install Docker Engine
+      shell: |
+        sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+    - name: Start Docker
+      shell: |
+        sudo systemctl start docker
+        sudo systemctl enable docker
+
+    - name: Add user
+      shell: |
+        sudo useradd -m redhat -g docker
+        sudo usermod -aG docker vagrant
+
+    - name: customizations
+      shell: |
+        echo "alias cls=clear" >> ~/.bashrc
+        sudo yum -y install git
+        sudo yum -y install xorg-x11-xauth
+        sudo yum -y install xorg-x11-apps.x86_64
+        sudo yum -y install firefox

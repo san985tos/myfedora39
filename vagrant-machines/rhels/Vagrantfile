@@ -1,0 +1,56 @@
+IMAGE_RHEL87 = "generic/rhel8"
+IMAGE_RHEL79 = "generic/rhel7"
+IMAGE_CENTOS = "centos/7"
+N = 1
+
+Vagrant.configure("2") do |config|
+    config.ssh.insert_key = false
+    #config.timezone.value = :host
+
+    (1..N).each do |i|
+        config.vm.define "rhel8#{i}" do |rhel|
+            rhel.vm.box = IMAGE_RHEL87
+            rhel.vm.network "private_network", ip: "192.168.56.#{i + 20}"
+            rhel.vm.hostname = "rhel8#{i}"
+            rhel.vm.provider "virtualbox" do |vb|
+              vb.memory = 512
+              vb.cpus = 1
+            end
+            rhel.vm.provision "shell", inline: <<-SHELL    
+              sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+              sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
+              sudo systemctl restart sshd
+              sudo subscription-manager register --auto-attach --username='lvazquez-r3dh4t' --password='R3dh4t.2022.01'
+              sudo insights-client --register
+
+            #  sudo yum localinstall http://satellite.opendemoday.com/pub/katello-ca-consumer-latest.noarch.rpm
+            #  sudo subscription-manager register --org redhat --username admin --password r3dh4t1!
+            SHELL
+        end
+    end 
+
+
+    (1..N).each do |i|
+        config.vm.define "rhel7#{i}" do |rhel|
+            rhel.vm.box = IMAGE_RHEL79
+            rhel.vm.network "private_network", ip: "192.168.56.#{i + 30}"
+            rhel.vm.hostname = "rhel7#{i}"
+            rhel.vm.provider "virtualbox" do |vb|
+              vb.memory = 512
+              vb.cpus = 1
+            end
+            rhel.vm.provision "shell", inline: <<-SHELL    
+              sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+              sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
+              sudo systemctl restart sshd
+               sudo subscription-manager register --auto-attach --username='lvazquez-r3dh4t' --password='R3dh4t.2022.01'
+              sudo yum install -y insights-client
+              sudo insights-client --register
+
+            #  sudo yum localinstall http://satellite.opendemoday.com/pub/katello-ca-consumer-latest.noarch.rpm
+            #  sudo subscription-manager register --org redhat --username admin --password r3dh4t1!
+            SHELL
+        end
+    end 
+
+end
