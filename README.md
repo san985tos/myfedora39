@@ -3,14 +3,16 @@ Automating myFedora39 setup
 
 
 
-## Prerequisites, install Ansible
+## Prerequisites
 
 ```
-sudo dnf install -y ansible
+sudo dnf install -y ansible git
 ```
 
+## Then
 
-
-## Commands:
+```
+sudo ansible-playbook myfedora39.yaml
+```
 
 
