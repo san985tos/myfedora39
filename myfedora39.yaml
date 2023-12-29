@@ -1,5 +1,3 @@
-
-
 - import_playbook: playbooks/1-upgrade_all_packages.yaml
 - import_playbook: playbooks/2-setup_terminal.yaml
 - import_playbook: playbooks/3-setup_neovim.yaml
