@@ -1,0 +1,7 @@
+
+- name: message "starting"
+  ansible.builtin.debug:
+    msg: Starting "1 - Upgrade all packages"
+
+- import_playbook: playbooks/1-upgrade_all_packages
+

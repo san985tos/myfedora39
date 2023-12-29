@@ -4,7 +4,7 @@
   become: true
   
   tasks:
-    - name: Install vagrant with dnf
+    - name: 5_Install_vagrant_with_dnf...
       ansible.builtin.package:
         name: vagrant
         state: present

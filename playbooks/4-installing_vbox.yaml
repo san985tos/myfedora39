@@ -4,22 +4,31 @@
   become: true
   
   tasks:
-    - name: Add the VirtualBox RPM repository to your Fedora system
+    - name: 4_install_vbox... Add the VirtualBox RPM repository to your Fedora system
       ansible.builtin.get_url:
         url: http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
         dest: /etc/yum.repos.d/
     
-    - name:  Install VirtualBox
+    - name:  4_install_vbox... Install VirtualBox
       shell: |
         sudo dnf install -y gcc binutils make glibc-devel patch libgomp glibc-headers kernel-headers kernel-devel-`uname -r` dkms
         sudo dnf install -y VirtualBox-7.0
 
-    - name: Add your user account to the vboxusers group
+    - name: 4_install_vbox... Add your user account to the vboxusers group
       shell: |
         sudo usermod -a -G vboxusers ${USER}
 
-    - name: Finally, configure the VirtualBox drivers
+    - name: 4_install_vbox... Finally, configure the VirtualBox drivers
       shell: |
-        sudo /usr/lib/virtualbox/vboxdrv.sh setup
+        sudo /usr/lib/virtualbox/vboxdrv.sh stop
+        sudo /usr/lib/virtualbox/vboxdrv.sh clean
+        sudo /usr/lib/virtualbox/vboxdrv.sh stetup
+
+    - name: Execute  sudo /usr/lib/virtualbox/vboxdrv.sh with parameter setup
+      ansible.builtin.expect:
+        command: /usr/lib/virtualbox/vboxdrv.sh setup
+        responses:
+          'SDDL:': 'false'
+    
 
     

@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    - name: Create dir nvim under /home/lvazquez/.config/
+    - name: 6_import_vagrant_machines... Create dir nvim under /home/lvazquez/.config/
       ansible.builtin.file:
         path: /home/lvazquez/vagrant
         state: directory

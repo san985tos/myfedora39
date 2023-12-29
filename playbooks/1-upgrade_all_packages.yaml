@@ -3,7 +3,8 @@
   hosts: localhost
   become: true
   tasks:
-    - name:  Upgrade all packages
+  
+    - name:  1_Upgrade_all_packages...
       ansible.builtin.package:
         name: '*'
         state: latest
