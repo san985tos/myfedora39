@@ -20,9 +20,7 @@
 
     - name: 4_install_vbox... Finally, configure the VirtualBox drivers
       shell: |
-        sudo /usr/lib/virtualbox/vboxdrv.sh stop
-        sudo /usr/lib/virtualbox/vboxdrv.sh clean
-        sudo /usr/lib/virtualbox/vboxdrv.sh stetup
+        sudo /usr/lib/virtualbox/vboxdrv.sh setup
 
     - name: Execute  sudo /usr/lib/virtualbox/vboxdrv.sh with parameter setup
       ansible.builtin.expect:
