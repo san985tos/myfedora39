@@ -9,13 +9,13 @@
         path: /home/lvazquez/.zshrc
         insertafter: EOF
         marker: '# {mark} ANSIBLE MANAGED BLOCK'
-        block: "alias cls='clear'\nalias ll='ls -lrth'\nalias v='vagrant'\nalias vu='vagrant up'\nalias vd='vagrant destroy -f'\nalias vstat='vagrant status'\nalias vi=nvim"
+        block: "alias cls='clear'\nalias ll='ls -lrth'\nalias v='vagrant'\nalias vu='vagrant up'\nalias vd='vagrant destroy -f'\nalias vstat='vagrant status'\nalias vi=nvim\nexport VAGRANT_DEFAULT_PROVIDER='virtualbox'"
 
     - name: 2_2.3_setup_terminal... Insert lines 'alias cls=clear' in /home/lvazquez/.bashrc
       ansible.builtin.blockinfile:
         path: /home/lvazquez/.bashrc
         insertafter: EOF
         marker: '# {mark} ANSIBLE MANAGED BLOCK'
-        block: "alias cls='clear'\nalias ll='ls -lrth'\nalias v='vagrant'\nalias vu='vagrant up'\nalias vd='vagrant destroy -f'\nalias vstat='vagrant status'\nalias vi=nvim"
+        block: "alias cls='clear'\nalias ll='ls -lrth'\nalias v='vagrant'\nalias vu='vagrant up'\nalias vd='vagrant destroy -f'\nalias vstat='vagrant status'\nalias vi=nvim\nexport VAGRANT_DEFAULT_PROVIDER='virtualbox'"
 
     
