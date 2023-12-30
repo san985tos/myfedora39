@@ -4,7 +4,7 @@
   become: true
   
   tasks:
-    - name: 3_setup_neovim... dnf install zsh, neovim
+    - name: 3_3.1_setup_neovim... dnf install zsh, neovim
       ansible.builtin.package:
         name:
           - neovim
@@ -13,7 +13,7 @@
           - zig
         state: present
 
-    - name: 3_setup_neovim... Create dir nvim under /home/lvazquez/.config/
+    - name: 3_3.1_setup_neovim... Create dir nvim under /home/lvazquez/.config/
       ansible.builtin.file:
         path: /home/lvazquez/.config/nvim
         state: directory
@@ -21,7 +21,7 @@
         owner: lvazquez
         group: lvazquez
     
-    - name: 3_setup_neovim... Copy init.lua from source to destination
+    - name: 3_3.1_setup_neovim... Copy init.lua from source to destination
       ansible.builtin.copy:
         src: /home/lvazquez/myFedora39/Config_files/init.lua
         dest: /home/lvazquez/.config/nvim/init.lua
