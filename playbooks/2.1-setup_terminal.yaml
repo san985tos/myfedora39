@@ -1,0 +1,15 @@
+---
+- name: Setup terminal
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: 2_2.1_setup_terminal... dnf install zsh
+      ansible.builtin.package:
+        name:
+          - zsh
+        state: present
+
+
+
+    

@@ -1,27 +1,17 @@
 ---
 - name: Setup terminal
   hosts: localhost
-  become: true
 
   tasks:
-    - name: 2_setup_terminal... dnf install zsh
-      ansible.builtin.package:
-        name:
-          - zsh
-        state: present
 
-    - name: 2_setup_terminal... dnf install ohmyzshell
-      shell: |
-        Y | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-
-    - name: 2_setup_terminal... Insert lines 'alias cls=clear' in /home/lvazquez/.zshrc
+    - name: 2_2.3_setup_terminal... Insert lines 'alias cls=clear' in /home/lvazquez/.zshrc
       ansible.builtin.blockinfile:
         path: /home/lvazquez/.zshrc
         insertafter: EOF
         marker: '# {mark} ANSIBLE MANAGED BLOCK'
         block: "alias cls='clear'\nalias ll='ls -lrth'\nalias v='vagrant'\nalias vu='vagrant up'\nalias vd='vagrant destroy -f'\nalias vstat='vagrant status'\nalias vi=nvim"
 
-    - name: 2_setup_terminal... Insert lines 'alias cls=clear' in /home/lvazquez/.bashrc
+    - name: 2_2.3_setup_terminal... Insert lines 'alias cls=clear' in /home/lvazquez/.bashrc
       ansible.builtin.blockinfile:
         path: /home/lvazquez/.bashrc
         insertafter: EOF

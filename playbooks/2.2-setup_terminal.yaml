@@ -1,0 +1,18 @@
+---
+- name: Setup terminal
+  hosts: localhost
+
+  tasks:
+
+    - name: 2_2.2_setup_termianl... Delete existing /home/lvazquez/.oh-my-zsh dir
+      shell: |
+        rm -rf /home/lvazquez/.oh-my-zsh
+
+    - name: 2_2.2_setup_terminal... Install ohmyzshell 
+      shell: |
+        Y | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+    - name: 2_2.2_setup_terminal... Remove ohmyzshell installer
+      shell: |
+        rm -rf install.sh
+    
