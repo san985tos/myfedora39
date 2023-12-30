@@ -22,5 +22,3 @@ sudo git clone https://github.com/san985tos/myFedora39.git
 cd myfedora39
 sudo ansible-playbook myfedora39.yaml
 ```
-
-
