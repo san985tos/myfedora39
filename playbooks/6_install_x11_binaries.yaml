@@ -1,0 +1,14 @@
+---
+- name: Setup x11
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: 6_setup_x11... 
+      shell: |
+        sudo yum install -y @base-x xclock
+
+    - name: 6_setup_x11_on_sshd_config...
+      shell: |
+        sudo sed -i 's/#X11Forwarding no/#X11Forwarding yes/g' /etc/ssh/sshd_config
+        
