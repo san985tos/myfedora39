@@ -1,0 +1,29 @@
+IMAGE_NAME = "bento/fedora-36"
+
+Vagrant.configure("2") do |config|
+    config.ssh.insert_key = false
+    config.ssh.forward_agent = true
+    config.ssh.forward_x11 = true
+    
+    config.vm.provider "virtualbox" do |v|
+        v.memory = 2048
+        v.cpus = 2
+    end
+      
+    config.vm.define "fedora" do |fedora|
+        fedora.vm.box = IMAGE_NAME
+        #fedora.vm.network "private_network", ip: "192.168.56.21"
+        fedora.vm.hostname = "fedoran"
+        fedora.vm.provision "file", source: "./install-podman-playbook.yml", destination: "$HOME/"
+        fedora.vm.provision "shell", inline: <<-SHELL
+          echo "Install X11    -----------------------"
+          sudo yum install -y @base-x xclock
+          echo "Enable X11 on sshd config ------------"
+          sudo sed -i 's/#X11Forwarding no/#X11Forwarding yes/g' /etc/ssh/sshd_config
+          echo "Install Chromium ---------------------"
+          sudo dnf install chromium -y
+        SHELL
+
+    end
+
+end
