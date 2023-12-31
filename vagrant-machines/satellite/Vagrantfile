@@ -1,0 +1,47 @@
+IMAGE_NAME = "generic/rhel8"
+
+Vagrant.configure("2") do |config|
+    config.ssh.insert_key = false
+    config.ssh.forward_agent = true
+    config.ssh.forward_x11 = true
+    config.timezone.value = :host
+
+    config.vm.provider "virtualbox" do |v|
+        v.memory = 20480
+        v.cpus = 4
+    end
+      
+    config.vm.define "satellite" do |rhelSatellite|
+        rhelSatellite.vm.box = IMAGE_NAME
+        #rhelSatellite.vm.network "private_network", ip: "192.168.56.10"
+        rhelSatellite.vm.hostname = "satellite.mylab.com"
+
+        #fedora.vm.provision "file", source: "./install-podman-playbook.yml", destination: "$HOME/"
+        rhelSatellite.vm.provision "shell", inline: <<-SHELL
+          echo "Install Satellite   --------------------"
+          sudo systemctl stop firewalld
+          sudo systemctl disable firewalld
+          sudo subscription-manager register --username lvazquez-r3dh4t --password R3dh4t.2022.01
+          sudo subscription-manager repos --disable "*"
+          sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms \
+            --enable=rhel-8-for-x86_64-appstream-rpms \
+            --enable=satellite-6.13-for-rhel-8-x86_64-rpms \
+            --enable=satellite-maintenance-6.13-for-rhel-8-x86_64-rpms
+          sudo dnf module enable satellite:el8 -y 
+          sudo dnf install satellite -y
+          dnf install chrony -y
+          systemctl enable --now chronyd
+          dnf install sos -y
+          sudo echo "::1         localhost localhost.localdomain localhost6 localhost6.localdomain6" > /etc/hosts
+          sudo echo "127.0.0.1 satellite.opendemoday.com satellite localhost" >> /etc/hosts
+          satellite-installer --scenario satellite \
+            --foreman-initial-organization Default \
+            --foreman-initial-location Default \
+            --foreman-initial-admin-username admin \
+            --foreman-initial-admin-password r3dh4t1!
+
+        SHELL
+
+    end
+
+end
