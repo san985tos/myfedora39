@@ -16,6 +16,12 @@ Vagrant.configure("2") do |config|
         fedora.vm.hostname = "fedora-docker"
         fedora.vm.provision "file", source: "./install-docker-playbook.yml", destination: "$HOME/"
         fedora.vm.provision "shell", inline: <<-SHELL
+          echo "Install X11    -----------------------"
+          sudo yum install -y @base-x xclock
+          echo "Enable X11 on sshd config ------------"
+          sudo sed -i 's/#X11Forwarding no/#X11Forwarding yes/g' /etc/ssh/sshd_config
+          echo "Install Chromium ---------------------"
+          sudo dnf install chromium -y
           echo "Install Ansible   --------------------"
           sudo yum install -y ansible
           sudo ansible-playbook install-docker-playbook.yml
