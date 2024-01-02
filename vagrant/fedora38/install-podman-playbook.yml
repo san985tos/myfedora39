@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  become: true
+
+  tasks:
+    - name: Install podman on Fedora
+      shell: |
+        sudo dnf -y copr enable rhcontainerbot/podman4
+        sudo dnf -y install podman
+
+    - name: Install git on Fedora
+      shell: |
+        sudo dnf -y install git
+
+    - name: Install wget and curl
+      shell: |
+        sudo dnf -y install wget curl
+
+    - name: Install policycoreutils-python-utils to use semanage
+      shell: |
+        sudo yum install -y policycoreutils-python-utils

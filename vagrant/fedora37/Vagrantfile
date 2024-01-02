@@ -1,4 +1,4 @@
-IMAGE_NAME = "bento/fedora-36"
+IMAGE_NAME = "bento/fedora-37"
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
