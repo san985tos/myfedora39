@@ -1,0 +1,44 @@
+---
+- name: Setup terminal
+  hosts: localhost
+
+  tasks:
+
+    - name: 2.3-Setup_terminal... Installing powerlevel10k
+      shell: |
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+        echo 'ZSH_THEME="powerlevel10k/powerlevel10k"'  >> .zshrc
+        echo 'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+    - name: 2.3-Setup_terminal... Create dir fonts under ~/.local/share/
+      ansible.builtin.file:
+        path: /home/lvazquez/.local/share/fonts
+        state: directory
+        mode: '0755'
+        owner: lvazquez
+        group: lvazquez
+
+    - name: Download multiple files into a ~/.local/share/ dir 
+      ansible.builtin.get_url:
+        url: https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item }}
+        dest: /home/lvazquez/.local/share/fonts/{{ item }}
+        mode: '0755'
+        owner: lvazquez
+        group: lvazquez
+      loop:
+        - MesloLGS%20NF%20Regular.ttf
+        - MesloLGS%20NF%20Bold.ttf
+        - MesloLGS%20NF%20Italic.ttf
+        - MesloLGS%20NF%20Bold%20Italic.ttf
+    
+
+    - name: Debug message "change font in terminal"
+      ansible.builtin.debug:
+        msg: "{{ '------>  Remeber to change the font in the terminal' }}"
+  
+
+
+    
+
+    
