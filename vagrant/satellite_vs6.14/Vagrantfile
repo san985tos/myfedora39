@@ -18,7 +18,8 @@ Vagrant.configure("2") do |config|
           sudo systemctl restart sshd
           sudo subscription-manager register --auto-attach --username='lvazquez-r3dh4t' --password='R3dh4t.2022.01'
           sudo dnf install -y xorg-x11-xauth xorg-x11-fonts-\* xorg-x11-utils dbus-x11
-          sudo dnf install -y xclock chromium
+          sudo dnf install -y xclock 
+          sudo dnf install -y chromium
           sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
           sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
           sudo yum install -y ansible
