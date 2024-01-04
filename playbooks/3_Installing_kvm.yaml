@@ -1,0 +1,46 @@
+---
+- name: Install KVM
+  hosts: localhost
+  become: true
+  tasks:
+  
+    - name: 3.1_Install_kvm... Install Virtualization QEMU/KVM
+      shell: |
+        sudo dnf group install --with-optional virtualization
+
+    - name: 3.1_Install_kvm... Enable and start libvirtd
+      shell: |
+        sudo systemctl start libvirtd
+        sudo systemctl enable libvirtd
+    
+    - name: 3.1_Install_kvm... Add new bridge
+      shell: | 
+        nmcli con add type bridge ifname br0
+    
+    - name: 3.1_Install_kvm... Create a slave interface
+      shell: |
+        nmcli con add type bridge-slave ifname enp86s0u1u3 master br0
+
+    - name: 3.1_Install_kvm... Turn on bridge
+      shell: | 
+        nmcli con up bridge-br0
+
+    - name: 3.1_Install_kvm... Disbale bridge stp
+      shell: |
+        sudo nmcli con mod bridge-br0 bridge.stp no
+        # nmcli con sho
+        # sudo nmcli -f bridge con show bridge-br0
+
+    - name: 3.1_Install_kvm... Turn on bridge interface
+      shell: | 
+        sudo nmcli con down 'Wired connection 1'
+        sudo nmcli con up bridge-br0
+        nmcli con sho
+
+    - name: 3.1_Install_kvm... Run virs commands
+      shell: |
+        sudo virsh net-define /home/lvazquez/myFedora39/Config_files/bridge-br0.xml
+        sudo virsh net-start bridge-br0
+        sudo virsh net-autostart bridge-br0
+        sudo virsh net-list --all
+

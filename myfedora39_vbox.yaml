@@ -1,0 +1,9 @@
+- import_playbook: playbooks/1-upgrade_all_packages.yaml
+- import_playbook: playbooks/2.1-setup_terminal.yaml
+- import_playbook: playbooks/2.2-setup_terminal.yaml
+- import_playbook: playbooks/2.3-setup_terminal.yaml
+- import_playbook: playbooks/2.4-setup_neovim
+- import_playbook: playbooks/2.5-setup_terminal_set_aliases
+- import_playbook: playbooks/4_Installing_vbox.yaml
+- import_playbook: playbooks/5-install_vagrant
+- import_playbook: playbooks/6_install_x11_binaries
