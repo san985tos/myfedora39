@@ -6,7 +6,7 @@
   
     - name: 3.1_Install_kvm... Install Virtualization QEMU/KVM
       shell: |
-        sudo dnf group install --with-optional virtualization
+        sudo dnf group install --with-optional virtualization -y
 
     - name: 3.1_Install_kvm... Enable and start libvirtd
       shell: |
