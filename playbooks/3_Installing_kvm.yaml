@@ -39,7 +39,7 @@
 
     - name: 3.1_Install_kvm... Run virs commands
       shell: |
-        sudo virsh net-define /home/lvazquez/myFedora39/Config_files/bridge-br0.xml
+        sudo virsh net-define /home/lvazquez/myfedora39/Config_files/bridge-br0.xml
         sudo virsh net-start bridge-br0
         sudo virsh net-autostart bridge-br0
         sudo virsh net-list --all

@@ -4,14 +4,14 @@
 
   tasks:
 
-    #- name: 2_2.2_setup_termianl... Delete existing /home/lvazquez/.oh-my-zsh dir
-    #  shell: |
-    #    rm -rf /home/lvazquez/.oh-my-zsh
+    - name: 2_2.2_setup_termianl... Delete existing /home/lvazquez/.oh-my-zsh dir
+      shell: |
+        rm -rf /home/lvazquez/.oh-my-zsh
 
-    - name: Delete existing /home/lvazquez/.oh-my-zsh dir
-      ansible.builtin.raw: rm -rf /home/ano-user/.oh-my-zsh
-      args:
-        executable: /bin/bash
+    #- name: Delete existing /home/lvazquez/.oh-my-zsh dir
+    #  ansible.builtin.raw: rm -rf /home/lvazquez/.oh-my-zsh
+    #  args:
+    #    executable: /bin/bash
     
     - name: 2_2.2_setup_terminal... Install ohmyzshell 
       shell: |

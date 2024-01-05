@@ -22,11 +22,11 @@
       shell: |
         sudo /usr/lib/virtualbox/vboxdrv.sh setup
 
-    - name: Execute  sudo /usr/lib/virtualbox/vboxdrv.sh with parameter setup
-      ansible.builtin.expect:
-        command: /usr/lib/virtualbox/vboxdrv.sh setup
-        responses:
-          'SDDL:': 'false'
+    #- name: Execute  sudo /usr/lib/virtualbox/vboxdrv.sh with parameter setup
+    #  ansible.builtin.expect:
+    #    command: /usr/lib/virtualbox/vboxdrv.sh setup
+    #    responses:
+    #      'SDDL:': 'false'
     
 
     
