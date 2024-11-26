@@ -9,7 +9,7 @@
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
         echo 'ZSH_THEME="powerlevel10k/powerlevel10k"'  >> .zshrc
-        echo 'source /home/lvazquez/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+        echo 'source ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 
     - name: 2.3-Setup_terminal... Create dir fonts under ~/.local/share/
       ansible.builtin.file:
